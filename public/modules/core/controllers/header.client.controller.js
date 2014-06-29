@@ -13,5 +13,7 @@ angular.module('core').controller('HeaderController', ['$scope', 'Menus',
 		$scope.$on('$stateChangeSuccess', function() {
 			$scope.isCollapsed = false;
 		});
+        
+        
 	}
 ]);
