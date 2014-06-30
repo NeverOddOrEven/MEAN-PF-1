@@ -1,8 +1,8 @@
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope',
-	function($scope) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication',
+	function($scope, Authentication) {
 		$scope.title = 'Alexander G. Suttmiller';
         $scope.subtitle = 'Omniaery, LLC';
         $scope.ui = {};
