@@ -2,8 +2,8 @@
 	<h1>Alexander G. Suttmiller</h1>
     <h2>Omniaery, LLC</h2>
     
-    <div data-ng-repeat="topic in content" class="topic">
-        <a ng-click="loadTopic(topic)">{{topic.title}}</a>
+    <div data-ng-repeat="topic in content" class="topic" ng-click="loadTopic(topic)">
+        <a >{{topic.title}}</a>
     </div>
     
     <current-topic current-topic="ui.currentTopic"></current-topic>

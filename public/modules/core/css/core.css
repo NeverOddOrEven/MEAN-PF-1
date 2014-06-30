@@ -8,8 +8,14 @@
 	display: none !important;
 }
 
-.topic a {
+.topic  {
     padding: 6px;
     border: 1px solid #FFF;
     margin: 6px;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, .4);
+    cursor: pointer;
 }
+    div.topic a:hover {
+        text-decoration: none;
+    }
