@@ -3,6 +3,7 @@
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	function($scope, Authentication) {
+        $scope.authentication = Authentication;
 		$scope.title = 'Alexander G. Suttmiller';
         $scope.subtitle = 'Omniaery, LLC';
         $scope.ui = {};
