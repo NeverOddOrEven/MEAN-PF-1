@@ -43,7 +43,6 @@ angular.module('core').controller('HomeController', ['$scope',
         
         $scope.loadTopic = function(topic) {
             $scope.ui.currentTopic = topic;
-            console.info($scope.ui.currentTopic);
         };
         
         $scope.closeTopic = function()
