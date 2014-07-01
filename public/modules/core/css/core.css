@@ -1,18 +1,22 @@
-@media (min-width: 551px) {
+@media (min-width: 801px) {
     .content-links {
-        float: right;
-        margin-right: 50px;
-        display: inline-block;
+        position: absolute;
+        right: 10px;
+        top: 10px;
     }
 }
 
-.page-headers {
-    float: left;
-    max-width: 598px;
-    display: inline-block;
+@media (max-width: 800px) {
+    .content-links {
+        margin-top: 5px;
+        display: block;
+    }
 }
 .content-links {
-    max-width: 598px;
+    margin: 5px;
+}
+.page-headers {
+    max-width: 400px;
     display: inline-block;
 }
     .topic  {
@@ -31,10 +35,11 @@ h1.title {
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 600;
     font-size: 3rem;
+    margin: 20px 10px 5px 10px;
 }
 h2.subtitle {
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 400;
     font-size: 2rem;
-    margin-top: 10px;
+    margin: 5px 10px 5px 10px;
 }
