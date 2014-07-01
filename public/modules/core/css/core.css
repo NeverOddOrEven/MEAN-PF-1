@@ -2,11 +2,18 @@
     .content-links {
         float: right;
         margin-right: 50px;
+        display: inline-block;
     }
 }
 
+.page-headers {
+    float: left;
+    max-width: 598px;
+    display: inline-block;
+}
 .content-links {
-    
+    max-width: 598px;
+    display: inline-block;
 }
     .topic  {
         padding: 6px;
