@@ -1,9 +1,13 @@
 <section data-ng-controller="HomeController">
-	<h1 class="title">Alexander G. Suttmiller</h1>
-    <h2 class="subtitle">Omniaery, LLC</h2>
+	<div class="headers">
+        <h1 class="title">Alexander G. Suttmiller</h1>
+        <h2 class="subtitle">Omniaery, LLC</h2>
+    </div>
     
-    <div data-ng-repeat="topic in content" class="topic" ng-click="loadTopic(topic)">
-        <a >{{topic.title}}</a>
+    <div class="content-links">
+        <div data-ng-repeat="topic in content" class="topic" ng-click="loadTopic(topic)">
+            <a >{{topic.title}}</a>
+        </div>
     </div>
     
     <current-topic current-topic="ui.currentTopic"></current-topic>

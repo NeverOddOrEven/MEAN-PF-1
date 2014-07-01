@@ -1,22 +1,24 @@
-
-.undecorated-link:hover {
-	text-decoration: none;
-}
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-	display: none !important;
-}
-
-.topic  {
-    padding: 6px;
-    border: 1px solid #FFF;
-    margin: 6px;
-    display: inline-block;
-    background-color: rgba(255, 255, 255, .8);
-    cursor: pointer;
-}
-    div.topic a:hover {
-        text-decoration: none;
+@media (min-width: 551px) {
+    .content-links {
+        float: right;
+        margin-right: 50px;
     }
+}
+
+.content-links {
+    
+}
+    .topic  {
+        padding: 6px;
+        border: 1px solid #FFF;
+        margin: 6px;
+        display: inline-block;
+        background-color: rgba(255, 255, 255, .8);
+        cursor: pointer;
+    }
+        div.topic a:hover {
+            text-decoration: none;
+        }
 
 h1.title {
     font-family: 'Josefin Sans', sans-serif;
@@ -27,4 +29,5 @@ h2.subtitle {
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 400;
     font-size: 2rem;
+    margin-top: 10px;
 }
