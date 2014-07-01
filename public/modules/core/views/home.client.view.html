@@ -5,8 +5,8 @@
     </div>
     
     <div class="content-links">
-        <div data-ng-repeat="topic in content" class="topic" ng-click="loadTopic(topic)">
-            <a >{{topic.title}}</a>
+        <div data-ng-repeat="topic in content" class="topic-buttons">
+            <topic-button data-topic="topic"></topic-button>
         </div>
     </div>
     

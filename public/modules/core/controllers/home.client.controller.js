@@ -7,6 +7,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.title = 'Alexander G. Suttmiller';
         $scope.subtitle = 'Omniaery, LLC';
         $scope.ui = {};
+        $scope.fn = {};
         
         $scope.content = [
             {
@@ -42,11 +43,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
             }
         ];
         
-        $scope.loadTopic = function(topic) {
+        $scope.fn.loadTopic = function(topic) {
             $scope.ui.currentTopic = topic;
         };
         
-        $scope.closeTopic = function()
+        $scope.fn.closeTopic = function()
         {
             $scope.ui.currentTopic = null;
         };
