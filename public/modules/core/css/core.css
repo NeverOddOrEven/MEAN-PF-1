@@ -1,3 +1,4 @@
+/* HEADER and NAVBAR placement */
 @media (min-width: 801px) {
     .content-links {
         position: absolute;
@@ -5,12 +6,38 @@
         top: 15px;
     }
 }
-
 @media (max-width: 800px) {
     .content-links {
         margin-top: 5px;
     }
 }
+
+/* CONTENT layout rules */
+@media (min-width: 576px) {
+    .topic-body-content .col-4 {
+        display: inline-block;
+        min-width: 180px;
+        width: 32%;
+        border: 1px solid #000;
+        overflow: hidden;
+    }
+        .topic-body-content .col-4:first-child {
+            margin-right: 2px;
+        }
+        .topic-body-content .col-4:last-child,
+        .topic-body-content .last-col /*IE8*/ {
+            margin-left: 2px;
+        }
+}
+@media (max-width: 575px) {
+    .topic-body-content .col-4 {
+        display: block;
+        width: 100%;
+        border: 1px solid #000;
+        margin: 2px 0;
+    }
+}
+
 .content-links {
     
 }
@@ -20,11 +47,12 @@
 }
     .topic-buttons {
         display: inline-block;
+        margin-right: 8px;
+        margin-top: 4px;
     }
         .topic-button  {
             padding: 6px;
             border: 1px solid #FFF5DF;
-            margin: 6px;
             display: inline-block;
             background-color: #FFF6DF;
             cursor: pointer;
@@ -32,19 +60,35 @@
             font-weight: normal;
             font-size: 1.5rem;
         }
-            div.topic a:hover {
+            .topic-button:first-child {
+                margin-left: 0;
+            }
+            .topic-button a:hover {
                 text-decoration: none;
             }
+            
 
 h1.title {
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 600;
     font-size: 3rem;
-    margin: 20px 10px 5px 10px;
+    margin: 20px 0 5px 0;
 }
 h2.subtitle {
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 400;
     font-size: 2rem;
-    margin: 5px 10px 5px 10px;
+    margin: 5px 0 5px 0;
+}
+
+.current-topic {
+    margin-top: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+
+.topic-body-content .col-4 {
+    vertical-align: top;
+    height: 100%;
 }

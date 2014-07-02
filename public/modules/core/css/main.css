@@ -5,18 +5,21 @@
 	display: none !important;
 }
 
-html,body,section {
+html,body {
     height: 100%;
     width: 100%;
     font-size: 10px;
     position: relative;
 }
+.page-wrapper {
+    width: 98%;
+    margin: 0 auto;
+}
 @media (max-width: 550px) {
     body {
         background: #FFF url('/modules/core/img/narrow-leveque-bck.jpg') no-repeat center center;
         background-size: cover;
-        height: 100%;
-        width: 100%;
+ 
     }
 }
 
@@ -24,7 +27,6 @@ html,body,section {
     body {
         background: #FFF url('/modules/core/img/wide-cbus-bck.jpg') no-repeat center center;
         background-size: cover;
-        height: 100%;
-        width: 100%;
+        
     }
 }
