@@ -13,30 +13,32 @@
 }
 
 /* CONTENT layout rules */
-@media (min-width: 576px) {
-    .topic-body-content .col-4 {
-        display: inline-block;
-        min-width: 180px;
-        width: 32%;
-        border: 1px solid #000;
-        overflow: hidden;
-    }
-        .topic-body-content .col-4:first-child {
-            margin-right: 2px;
+    /* 3 - columns */
+    @media (min-width: 576px) {
+        .topic-body-content .col-4 {
+            display: inline-block;
+            min-width: 180px;
+            width: 32%;
+            border: 1px solid #000;
+            overflow: hidden;
         }
-        .topic-body-content .col-4:last-child,
-        .topic-body-content .last-col /*IE8*/ {
-            margin-left: 2px;
-        }
-}
-@media (max-width: 575px) {
-    .topic-body-content .col-4 {
-        display: block;
-        width: 100%;
-        border: 1px solid #000;
-        margin: 2px 0;
+            .topic-body-content .col-4:first-child {
+                margin-right: 2px;
+            }
+            .topic-body-content .col-4:last-child,
+            .topic-body-content .last-col /*IE8*/ {
+                margin-left: 2px;
+            }
     }
-}
+    /* 3 - stacked */
+    @media (max-width: 575px) {
+        .topic-body-content .col-4 {
+            display: block;
+            width: 100%;
+            border: 1px solid #000;
+            margin: 2px 0;
+        }
+    }
 
 .content-links {
     

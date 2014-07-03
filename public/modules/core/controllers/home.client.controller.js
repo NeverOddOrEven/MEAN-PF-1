@@ -56,5 +56,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         {
             $scope.ui.currentTopic = null;
         };
+      
+        $scope.fn.init = function() {
+            $scope.fn.loadTopic($scope.content[0]);
+        };
 	}
 ]);
