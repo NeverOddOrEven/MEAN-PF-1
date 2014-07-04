@@ -19,7 +19,6 @@
             display: inline-block;
             min-width: 180px;
             width: 32%;
-            border: 1px solid #000;
             overflow: hidden;
         }
             .topic-body-content .col-4:first-child {
@@ -29,20 +28,29 @@
             .topic-body-content .last-col /*IE8*/ {
                 margin-left: 2px;
             }
+        .topic-body-content .col-6 {
+            display: inline-block;
+            min-width: 280px;
+            width: 49%;
+            overflow: hidden;
+        }
+            .topic-body-content .col-6:first-child {
+                margin-right: 2px;
+            }
+            .topic-body-content .col-6:last-child,
+            .topic-body-content .last-col /*IE8*/ {
+                margin-left: 2px;
+            }  
     }
-    /* 3 - stacked */
+    /* 2 & 3 - columns - stacked */
     @media (max-width: 575px) {
-        .topic-body-content .col-4 {
+        .topic-body-content .col-4,
+        .topic-body-content .col-6 {
             display: block;
             width: 100%;
-            border: 1px solid #000;
             margin: 2px 0;
         }
     }
-
-.content-links {
-    
-}
 .page-headers {
     max-width: 400px;
     display: inline-block;
@@ -73,14 +81,22 @@
 h1.title {
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 600;
+    font-size: 30px;
     font-size: 3rem;
     margin: 20px 0 5px 0;
 }
 h2.subtitle {
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 400;
+    font-size: 20px;
     font-size: 2rem;
-    margin: 5px 0 5px 0;
+    margin: 5px 0;
+}
+
+p {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-size: 1.4rem;
 }
 
 .current-topic {
@@ -88,9 +104,27 @@ h2.subtitle {
     height: 100%;
     width: 100%;
 }
+    .current-topic h3 {
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 600;
+        font-size: 28px;
+        font-size: 2.8rem;
+        margin: 5px 0;
+    }
+    .current-topic h4 {
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 600;
+        font-size: 22px;
+        font-size 2.2rem;
+        margin: 5px 0;
+    }
+    .current-topic p {
+        padding: 5px 0;
+    }
 
-
-.topic-body-content .col-4 {
+.topic-body-content .col-4,
+.topic-body-content .col-6 {
+    margin-top: 20px;
     vertical-align: top;
     height: 100%;
 }
