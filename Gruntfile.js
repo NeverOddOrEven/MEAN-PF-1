@@ -105,13 +105,13 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-        ngmin: {
-            production: {
-                files: {
-                    'public/dist/application.js': '<%= applicationJavaScriptFiles %>'
-                }
+    ngmin: {
+        production: {
+            files: {
+                'public/dist/application.js': '<%= applicationJavaScriptFiles %>'
             }
-        },
+        }
+    },
 		concurrent: {
 			default: ['nodemon', 'watch'],
 			debug: ['nodemon', 'watch', 'node-inspector'],
