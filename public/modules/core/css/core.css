@@ -136,6 +136,11 @@ img.me {
 
 }
 
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .topic-body-content .col-4,
 .topic-body-content .col-6 {
     margin-top: 20px;
