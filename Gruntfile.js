@@ -149,8 +149,8 @@ module.exports = function(grunt) {
 		var init = require('./config/init')();
 		var config = require('./config/config');
 
-		grunt.config.set('applicationJavaScriptFiles', config.assets.js);
-		grunt.config.set('applicationCSSFiles', config.assets.css);
+		grunt.config.set('applicationJavaScriptFiles', config.assets.jsSrc);
+		grunt.config.set('applicationCSSFiles', config.assets.cssSrc);
 	});
 
 	// Default task(s).
