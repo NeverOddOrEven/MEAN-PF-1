@@ -1,4 +1,4 @@
-Based Heavily On:
+##Based Heavily On the MEANJS project
 [![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)](http://meanjs.org/)
 
 [![Build Status](https://travis-ci.org/meanjs/mean.svg?branch=master)](https://travis-ci.org/meanjs/mean)
@@ -6,7 +6,8 @@ Based Heavily On:
 
 
 ## Porfolio / Mock Resume 
-[The Live Demo](http://asuttmiller-pf-1.herokuapp.com);
+This application demonstrates use of Mongo, Express, Angular, and Node. The live demo is hosted on Heroku.
+[The Live Demo](http://asuttmiller-pf-1.herokuapp.com)
 
 ## License
 (The MIT License) (For MEANJS)
