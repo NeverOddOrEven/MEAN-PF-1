@@ -4,103 +4,103 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-	errorHandler = require('./errors'),
-	Article = mongoose.model('Article'),
-	_ = require('lodash');
+    errorHandler = require('./errors'),
+    Page = mongoose.model('Page'),
+    _ = require('lodash');
 
 /**
- * Create a article
+ * Create a Page
  */
 exports.create = function(req, res) {
-	var article = new Article(req.body);
-	article.user = req.user;
+  var page = new Page(req.body);
+	page.user = req.user;
 
-	article.save(function(err) {
+	page.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(article);
+			res.jsonp(page);
 		}
 	});
 };
 
 /**
- * Show the current article
+ * Show the current Page
  */
 exports.read = function(req, res) {
-	res.jsonp(req.article);
+  res.jsonp(req.page);
 };
 
 /**
- * Update a article
+ * Update a Page
  */
 exports.update = function(req, res) {
-	var article = req.article;
+  var page = req.page;
 
-	article = _.extend(article, req.body);
+	page = _.extend(page, req.body);
 
-	article.save(function(err) {
+	page.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(article);
+			res.jsonp(page);
 		}
 	});
 };
 
 /**
- * Delete an article
+ * Delete an Page
  */
 exports.delete = function(req, res) {
-	var article = req.article;
+  var page = req.page;
 
-	article.remove(function(err) {
+	page.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(article);
+			res.jsonp(page);
 		}
 	});
 };
 
 /**
- * List of Articles
+ * List of Pages
  */
 exports.list = function(req, res) {
-	Article.find().sort('-created').populate('user', 'displayName').exec(function(err, articles) {
+  Page.find().sort('-created').populate('user', 'displayName').exec(function(err, pages) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(articles);
+			res.jsonp(pages);
 		}
 	});
 };
 
 /**
- * Article middleware
+ * Page middleware
  */
-exports.articleByID = function(req, res, next, id) {
-	Article.findById(id).populate('user', 'displayName').exec(function(err, article) {
+exports.pageByID = function(req, res, next, id) {
+	Page.findById(id).populate('user', 'displayName').exec(function(err, page) {
 		if (err) return next(err);
-		if (!article) return next(new Error('Failed to load article ' + id));
-		req.article = article;
+		if (!page) return next(new Error('Failed to load page ' + id));
+		req.page = page;
 		next();
 	});
 };
 
 /**
- * Article authorization middleware
+ * Page authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.article.user.id !== req.user.id) {
+	if (req.page.user.id !== req.user.id) {
 		return res.status(403).send({
 			message: 'User is not authorized'
 		});
