@@ -7,9 +7,9 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 /**
- * Article Schema
+ * Page Schema
  */
-var ArticleSchema = new Schema({
+var PageSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
@@ -20,15 +20,24 @@ var ArticleSchema = new Schema({
 		trim: true,
 		required: 'Title cannot be blank'
 	},
-	content: {
+  subtitle: {
+    type: String,
+		default: '',
+		trim: true
+  },
+	body: {
 		type: String,
 		default: '',
 		trim: true
 	},
+  rank: {
+    type: Number,
+    default: 100
+  },
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
 	}
 });
 
-mongoose.model('Article', ArticleSchema);
+mongoose.model('Page', PageSchema);

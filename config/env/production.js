@@ -10,6 +10,7 @@ module.exports = {
 			],
 			js: [
 				'public/lib/angular/angular.min.js',
+        'public/lib/angular-sanitize/angular-sanitize.js',
 				'public/lib/angular-resource/angular-resource.min.js',
 				'public/lib/angular-animate/angular-animate.min.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.min.js',
@@ -17,8 +18,17 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
 			]
 		},
-		css: 'public/dist/application.min.css',
-		js: 'public/dist/application.min.js'
+    cssSrc: [
+			'public/modules/**/css/*.css'
+		],
+		jsSrc: [
+			'public/config.js',
+			'public/application.js',
+			'public/modules/*/*.js',
+			'public/modules/*/*[!tests]*/*.js'
+		],
+		css: 'public/dist/application.min.css', 
+    js: 'public/dist/application.min.js'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',

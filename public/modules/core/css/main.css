@@ -1,0 +1,79 @@
+.undecorated-link:hover {
+	text-decoration: none;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	display: none !important;
+}
+
+html,body {
+    height: 100%;
+    width: 100%;
+    font-size: 10px;
+    position: relative;
+}
+.page-wrapper {
+    width: 98%;
+    margin: 0 auto;
+}
+@media (max-width: 550px) {
+    body {
+        background: #FFF url('/modules/core/img/narrow-leveque-bck.jpg') no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+}
+
+@media (min-width: 551px) {
+    body {
+        background: #FFF url('/modules/core/img/wide-cbus-bck.jpg') no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+}
+
+a.social-icon {
+  text-decoration: none;
+}
+span.icon {
+    font-family: 'icomoon';
+    margin: 5px;
+}
+    span.icon.large {
+        font-size: 30px;
+        font-size: 3rem;
+    }
+    span.icon.blue {
+        color: #10176c;
+    }
+    span.icon.html5:before {
+        content: '\e616';
+    }
+    span.icon.js:before {
+        content: '\e615';
+    }
+    span.icon.css:before {
+        content: '\e615';
+    }
+    span.icon.windows:before {
+        content: '\e612';
+    }
+    span.icon.apple:before {
+        content: '\e611';
+    }
+    span.icon.linux:before {
+        content: '\e610';
+    }
+    span.icon.github:before {
+        content: '\e60f';
+    }
+    span.icon.twitter:before {
+        content: '\e60e';
+    }
+    span.icon.mobile:before {
+        content: '\e601';
+    }
+
+div.center {
+    text-align: center;
+    margin: 0 auto;
+}

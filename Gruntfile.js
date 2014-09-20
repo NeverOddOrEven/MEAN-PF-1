@@ -105,13 +105,13 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-        ngmin: {
-            production: {
-                files: {
-                    'public/dist/application.js': '<%= applicationJavaScriptFiles %>'
-                }
+    ngmin: {
+        production: {
+            files: {
+                'public/dist/application.js': '<%= applicationJavaScriptFiles %>'
             }
-        },
+        }
+    },
 		concurrent: {
 			default: ['nodemon', 'watch'],
 			debug: ['nodemon', 'watch', 'node-inspector'],
@@ -149,8 +149,8 @@ module.exports = function(grunt) {
 		var init = require('./config/init')();
 		var config = require('./config/config');
 
-		grunt.config.set('applicationJavaScriptFiles', config.assets.js);
-		grunt.config.set('applicationCSSFiles', config.assets.css);
+		grunt.config.set('applicationJavaScriptFiles', config.assets.jsSrc);
+		grunt.config.set('applicationCSSFiles', config.assets.cssSrc);
 	});
 
 	// Default task(s).
@@ -167,4 +167,7 @@ module.exports = function(grunt) {
 
 	// Test task.
 	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
+
+	// Heroku task.
+	grunt.registerTask('heroku:production', ['lint', 'loadConfig', 'ngmin', 'uglify', 'cssmin']);
 };

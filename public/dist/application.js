@@ -6,6 +6,7 @@ var ApplicationConfiguration = function () {
     var applicationModuleVendorDependencies = [
         'ngResource',
         'ngAnimate',
+        'ngSanitize',
         'ui.router',
         'ui.bootstrap',
         'ui.utils'
@@ -41,99 +42,9 @@ angular.element(document).ready(function () {
   angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
 });'use strict';
 // Use Applicaion configuration module to register a new module
-ApplicationConfiguration.registerModule('articles');'use strict';
-// Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('core');'use strict';
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('users');'use strict';
-// Configuring the Articles module
-angular.module('articles').run([
-  'Menus',
-  function (Menus) {
-    // Set top bar menu items
-    Menus.addMenuItem('topbar', 'Articles', 'articles', 'dropdown', '/articles(/create)?');
-    Menus.addSubMenuItem('topbar', 'articles', 'List Articles', 'articles');
-    Menus.addSubMenuItem('topbar', 'articles', 'New Article', 'articles/create');
-  }
-]);'use strict';
-// Setting up route
-angular.module('articles').config([
-  '$stateProvider',
-  function ($stateProvider) {
-    // Articles state routing
-    $stateProvider.state('listArticles', {
-      url: '/articles',
-      templateUrl: 'modules/articles/views/list-articles.client.view.html'
-    }).state('createArticle', {
-      url: '/articles/create',
-      templateUrl: 'modules/articles/views/create-article.client.view.html'
-    }).state('viewArticle', {
-      url: '/articles/:articleId',
-      templateUrl: 'modules/articles/views/view-article.client.view.html'
-    }).state('editArticle', {
-      url: '/articles/:articleId/edit',
-      templateUrl: 'modules/articles/views/edit-article.client.view.html'
-    });
-  }
-]);'use strict';
-angular.module('articles').controller('ArticlesController', [
-  '$scope',
-  '$stateParams',
-  '$location',
-  'Authentication',
-  'Articles',
-  function ($scope, $stateParams, $location, Authentication, Articles) {
-    $scope.authentication = Authentication;
-    $scope.create = function () {
-      var article = new Articles({
-          title: this.title,
-          content: this.content
-        });
-      article.$save(function (response) {
-        $location.path('articles/' + response._id);
-        $scope.title = '';
-        $scope.content = '';
-      }, function (errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
-    };
-    $scope.remove = function (article) {
-      if (article) {
-        article.$remove();
-        for (var i in $scope.articles) {
-          if ($scope.articles[i] === article) {
-            $scope.articles.splice(i, 1);
-          }
-        }
-      } else {
-        $scope.article.$remove(function () {
-          $location.path('articles');
-        });
-      }
-    };
-    $scope.update = function () {
-      var article = $scope.article;
-      article.$update(function () {
-        $location.path('articles/' + article._id);
-      }, function (errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
-    };
-    $scope.find = function () {
-      $scope.articles = Articles.query();
-    };
-    $scope.findOne = function () {
-      $scope.article = Articles.get({ articleId: $stateParams.articleId });
-    };
-  }
-]);'use strict';
-//Articles service used for communicating with the articles REST endpoints
-angular.module('articles').factory('Articles', [
-  '$resource',
-  function ($resource) {
-    return $resource('articles/:articleId', { articleId: '@_id' }, { update: { method: 'PUT' } });
-  }
-]);'use strict';
 // Setting up route
 angular.module('core').config([
   '$stateProvider',
@@ -168,24 +79,98 @@ angular.module('core').controller('HeaderController', [
 angular.module('core').controller('HomeController', [
   '$scope',
   'Authentication',
-  function ($scope, Authentication) {
-    // This provides Authentication context.
+  'SupportedDisplayFormats',
+  function ($scope, Authentication, SupportedDisplayFormats) {
     $scope.authentication = Authentication;
+    $scope.title = 'Alexander G. Suttmiller';
+    $scope.subtitle = 'Software Engineer';
+    $scope.ui = {};
+    $scope.fn = {};
+    $scope.content = [
+      {
+        title: 'Home',
+        subtitle: 'Software Engineering Tech Geek',
+        body: SupportedDisplayFormats.TwoColumnFormat([
+          '<p>I am currently located in Columbus, OH though I do like to travel!</p><p>I specialize in modern web application programming design and architecture, as well as keeping up with the latest effective trends in the software development space.</p><div class="center"><span class="icon js"></span><span class="icon html5"></span><span class="icon mobile"></span></span></div><p>I frequent the Columbus JavaScript usergroup. I also like to publish little code tidbits to my github when I feel inspired to a programming exercise.</p><p>Visit me at <a href="https://www.linkedin.com/pub/alex-suttmiller/30/3a/a93">LinkedIn</a> for my employment history.</p><p>Check me out on twitter or github to see what I like to dabble in!</p><div class="center"><a class="social-icon"  href="https://twitter.com/asuttmiller"><span class="icon large blue twitter"></span></a><a class="social-icon"  href="https://github.com/neveroddoreven"><span class="icon github large blue"></span></a></div><div class="center"><p>Follow me!</p></div>',
+          '<div class="me"><img class="me" src="http://s3-us-west-2.amazonaws.com/alexsuttmiller.com/images/pages/homepage/me.jpg" alt="Me" title="Me" style="width: 50%; text-align: center;"/></div>'
+        ])
+      },
+      {
+        title: 'Technologies',
+        subtitle: 'Skills and Experience',
+        body: SupportedDisplayFormats.ThreeColumnFormat([
+          '<div><h6>Server Side</h6></div>',
+          '<div><h6>Front End</h6></div>',
+          '<div><h6>Data Management</h6></div>',
+          '<div><h6>Usability</h6></div>',
+          '<div><h6>Tools</h6></div>',
+          '<div><h6>Philosophy</h6></div>'
+        ])
+      },
+      {
+        title: 'Community',
+        subtitle: '',
+        body: ''
+      },
+      {
+        title: 'Education',
+        subtitle: '',
+        body: ''
+      }
+    ];
+    $scope.fn.loadTopic = function (topic) {
+      $scope.ui.currentTopic = topic;
+    };
+    $scope.fn.closeTopic = function () {
+      $scope.ui.currentTopic = null;
+    };
+    $scope.fn.init = function () {
+      $scope.fn.loadTopic($scope.content[0]);
+    };
   }
 ]);'use strict';
+angular.module('core').directive('currentTopic', [function () {
+    function link(scope, element, attrs) {
+    }
+    return {
+      templateUrl: '/modules/core/views/directives/current-topic.directive.view.html',
+      scope: false,
+      restrict: 'E',
+      link: link
+    };
+  }]);'use strict';
+angular.module('core').directive('topicButton', [function () {
+    function link(scope, element, attrs) {
+      element.bind('click', function () {
+        scope.$apply(function () {
+          scope.fn.loadTopic(scope.topic);
+        });
+      });
+    }
+    return {
+      template: '<a class="topic-button">{{topic.title}}</a>',
+      scope: true,
+      restrict: 'E',
+      link: link
+    };
+  }]);'use strict';
 //Menu service used for managing  menus
 angular.module('core').service('Menus', [function () {
     // Define a set of default roles
-    this.defaultRoles = ['user'];
+    this.defaultRoles = ['*'];
     // Define the menus object
     this.menus = {};
     // A private function for rendering decision 
     var shouldRender = function (user) {
       if (user) {
-        for (var userRoleIndex in user.roles) {
-          for (var roleIndex in this.roles) {
-            if (this.roles[roleIndex] === user.roles[userRoleIndex]) {
-              return true;
+        if (!!~this.roles.indexOf('*')) {
+          return true;
+        } else {
+          for (var userRoleIndex in user.roles) {
+            for (var roleIndex in this.roles) {
+              if (this.roles[roleIndex] === user.roles[userRoleIndex]) {
+                return true;
+              }
             }
           }
         }
@@ -245,7 +230,7 @@ angular.module('core').service('Menus', [function () {
         menuItemClass: menuItemType,
         uiRoute: menuItemUIRoute || '/' + menuItemURL,
         isPublic: isPublic === null || typeof isPublic === 'undefined' ? this.menus[menuId].isPublic : isPublic,
-        roles: roles || this.defaultRoles,
+        roles: roles === null || typeof roles === 'undefined' ? this.menus[menuId].roles : roles,
         position: position || 0,
         items: [],
         shouldRender: shouldRender
@@ -266,7 +251,7 @@ angular.module('core').service('Menus', [function () {
             link: menuItemURL,
             uiRoute: menuItemUIRoute || '/' + menuItemURL,
             isPublic: isPublic === null || typeof isPublic === 'undefined' ? this.menus[menuId].items[itemIndex].isPublic : isPublic,
-            roles: roles || this.defaultRoles,
+            roles: roles === null || typeof roles === 'undefined' ? this.menus[menuId].items[itemIndex].roles : roles,
             position: position || 0,
             shouldRender: shouldRender
           });
@@ -305,6 +290,50 @@ angular.module('core').service('Menus', [function () {
     };
     //Adding the topbar menu
     this.addMenu('topbar');
+  }]);'use strict';
+//Menu service used for managing  menus
+angular.module('core').service('SupportedDisplayFormats', [function () {
+    function OneColumn(columns) {
+      var markup = '';
+      var count = 0;
+      columns.forEach(function () {
+        markup = markup + '<div class="row"><div class="col-12">' + columns[count] + '</div></div>';
+        ++count;
+      });
+      return markup;
+    }
+    function TwoColumn(columns) {
+      var markup = '';
+      var count = 0;
+      columns.forEach(function () {
+        var onNewRow = count % 2 === 0;
+        var endRow = count % 2 === 1 || count === columns.length;
+        markup = onNewRow ? markup + '<div class="row">' : markup;
+        markup = markup + '<div class="col-6">' + columns[count] + '</div>';
+        markup = endRow ? markup + '</div>' : markup;
+        ++count;
+      });
+      console.info(markup);
+      return markup;
+    }
+    function ThreeColumn(columns) {
+      var markup = '';
+      var count = 0;
+      columns.forEach(function () {
+        var onNewRow = count % 3 === 0;
+        var endRow = count % 3 === 2 || count === columns.length;
+        markup = onNewRow ? markup + '<div class="row">' : markup;
+        markup = markup + '<div class="col-4">' + columns[count] + '</div>';
+        markup = endRow ? markup + '</div>' : markup;
+        ++count;
+      });
+      return markup;
+    }
+    return {
+      OneColumnFormat: OneColumn,
+      TwoColumnFormat: TwoColumn,
+      ThreeColumnFormat: ThreeColumn
+    };
   }]);'use strict';
 // Config HTTP Error Handling
 angular.module('users').config([

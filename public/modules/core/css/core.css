@@ -1,15 +1,151 @@
-.content {
-	margin-top: 50px;
+/* HEADER and NAVBAR placement */
+@media (min-width: 801px) {
+    .content-links {
+        position: absolute;
+        right: 10px;
+        top: 15px;
+    }
 }
-.undecorated-link:hover {
-	text-decoration: none;
+@media (max-width: 800px) {
+    .content-links {
+        margin-top: 5px;
+    }
 }
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-	display: none !important;
+.container {
+  margin: 0;
 }
-.ng-invalid.ng-dirty{
-    border-color:#FA787E;
+/* CONTENT layout rules */
+    /* 3 - columns */
+    @media (min-width: 576px) {
+        .topic-body-content .col-4 {
+            display: inline-block;
+            min-width: 180px;
+            width: 32%;
+            overflow: hidden;
+        }
+            .topic-body-content .col-4:first-child {
+                margin-right: 2px;
+            }
+            .topic-body-content .col-4:last-child,
+            .topic-body-content .last-col /*IE8*/ {
+                margin-left: 2px;
+            }
+        .topic-body-content .col-6 {
+            display: inline-block;
+            min-width: 280px;
+            width: 49%;
+            overflow: hidden;
+        }
+            .topic-body-content .col-6:first-child {
+                margin-right: 2px;
+            }
+            .topic-body-content .col-6:last-child,
+            .topic-body-content .last-col /*IE8*/ {
+                margin-left: 2px;
+            }  
+    }
+    /* 2 & 3 - columns - stacked */
+    @media (max-width: 575px) {
+        .topic-body-content .col-4,
+        .topic-body-content .col-6 {
+            display: block;
+            width: 100%;
+            margin: 2px 0;
+        }
+    }
+.page-headers {
+    max-width: 400px;
+    display: inline-block;
 }
-.ng-valid.ng-dirty{
-    border-color:#78FA89;
+    .topic-buttons {
+        display: inline-block;
+        margin-right: 8px;
+        margin-top: 4px;
+    }
+        .topic-button  {
+            padding: 6px;
+            border: 1px solid #FFF5DF;
+            display: inline-block;
+            background-color: #FFF6DF;
+            cursor: pointer;
+            font-family: 'Marvel', sans-serif;
+            font-weight: normal;
+            font-size: 1.5rem;
+        }
+            .topic-button:first-child {
+                margin-left: 0;
+            }
+            .topic-button a:hover {
+                text-decoration: none;
+            }
+            
+
+h1.title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    font-size: 3rem;
+    margin: 20px 0 5px 0;
+}
+h2.subtitle {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    font-size: 2rem;
+    margin: 5px 0;
+}
+
+p {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    font-size: 1.6rem;
+}
+
+.current-topic-headers {
+    border-bottom: 1px solid #AAA;
+}
+.current-topic {
+    margin-top: 10px;
+    height: 100%;
+    width: 100%;
+}
+    .current-topic h3 {
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 600;
+        font-size: 24px;
+        font-size: 2.4rem;
+        margin: 5px 0;
+    }
+    .current-topic h4 {
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        font-size 2.0rem;
+        margin: 5px 0;
+    }
+    .current-topic p {
+        padding: 5px 0;
+    }
+
+div.me {
+    width: 100%;
+        text-align: center;
+}
+img.me {
+    width: 100%;
+    max-width: 300px;
+
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.topic-body-content .col-4,
+.topic-body-content .col-6 {
+    margin-top: 20px;
+    vertical-align: top;
+    height: 100%;
 }

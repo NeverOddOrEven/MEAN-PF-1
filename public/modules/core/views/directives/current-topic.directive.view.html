@@ -1,0 +1,7 @@
+<div class="current-topic">
+    <div class="current-topic-headers">
+        <h3>{{ui.currentTopic.title}}</h3>
+        <h4 ng-hide="!ui.currentTopic.subtitle">{{ui.currentTopic.subtitle}}</h4>
+    </div>
+    <div data-ng-bind-html="ui.currentTopic.body" class="topic-body-content"></div>
+</div>

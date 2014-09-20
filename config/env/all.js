@@ -2,13 +2,13 @@
 
 module.exports = {
 	app: {
-		title: 'MEAN.JS',
-		description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
+		title: 'Alex Suttmiller',
+		description: 'Portfolio Resume',
 		keywords: 'mongodb, express, angularjs, node.js, mongoose, passport'
 	},
 	port: process.env.PORT || 3000,
 	templateEngine: 'swig',
-	sessionSecret: 'MEAN',
+	sessionSecret: 'asdfasdfasdf',
 	sessionCollection: 'sessions',
 	assets: {
 		lib: {
@@ -18,6 +18,7 @@ module.exports = {
 			],
 			js: [
 				'public/lib/angular/angular.js',
+        'public/lib/angular-sanitize/angular-sanitize.js',
 				'public/lib/angular-resource/angular-resource.js',
 				'public/lib/angular-animate/angular-animate.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
