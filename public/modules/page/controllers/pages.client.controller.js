@@ -8,7 +8,8 @@ angular.module('pages').controller('PagesController', ['$scope', '$stateParams',
 			var page = new Pages({
 				title: this.title,
         subtitle: this.subtitle,
-				body: this.body
+				body: this.body,
+        rank: this.rank
 			});
 			page.$save(function(response) {
 				$location.path('pages/' + response._id);
