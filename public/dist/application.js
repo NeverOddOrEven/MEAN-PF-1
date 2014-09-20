@@ -43,6 +43,8 @@ angular.element(document).ready(function () {
 });'use strict';
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('core');'use strict';
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('pages');'use strict';
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('users');'use strict';
 // Setting up route
@@ -80,44 +82,13 @@ angular.module('core').controller('HomeController', [
   '$scope',
   'Authentication',
   'SupportedDisplayFormats',
-  function ($scope, Authentication, SupportedDisplayFormats) {
+  'Pages',
+  function ($scope, Authentication, SupportedDisplayFormats, Pages) {
     $scope.authentication = Authentication;
     $scope.title = 'Alexander G. Suttmiller';
     $scope.subtitle = 'Software Engineer';
     $scope.ui = {};
     $scope.fn = {};
-    $scope.content = [
-      {
-        title: 'Home',
-        subtitle: 'Software Engineering Tech Geek',
-        body: SupportedDisplayFormats.TwoColumnFormat([
-          '<p>I am currently located in Columbus, OH though I do like to travel!</p><p>I specialize in modern web application programming design and architecture, as well as keeping up with the latest effective trends in the software development space.</p><div class="center"><span class="icon js"></span><span class="icon html5"></span><span class="icon mobile"></span></span></div><p>I frequent the Columbus JavaScript usergroup. I also like to publish little code tidbits to my github when I feel inspired to a programming exercise.</p><p>Visit me at <a href="https://www.linkedin.com/pub/alex-suttmiller/30/3a/a93">LinkedIn</a> for my employment history.</p><p>Check me out on twitter or github to see what I like to dabble in!</p><div class="center"><a class="social-icon"  href="https://twitter.com/asuttmiller"><span class="icon large blue twitter"></span></a><a class="social-icon"  href="https://github.com/neveroddoreven"><span class="icon github large blue"></span></a></div><div class="center"><p>Follow me!</p></div>',
-          '<div class="me"><img class="me" src="http://s3-us-west-2.amazonaws.com/alexsuttmiller.com/images/pages/homepage/me.jpg" alt="Me" title="Me" style="width: 50%; text-align: center;"/></div>'
-        ])
-      },
-      {
-        title: 'Technologies',
-        subtitle: 'Skills and Experience',
-        body: SupportedDisplayFormats.ThreeColumnFormat([
-          '<div><h6>Server Side</h6></div>',
-          '<div><h6>Front End</h6></div>',
-          '<div><h6>Data Management</h6></div>',
-          '<div><h6>Usability</h6></div>',
-          '<div><h6>Tools</h6></div>',
-          '<div><h6>Philosophy</h6></div>'
-        ])
-      },
-      {
-        title: 'Community',
-        subtitle: '',
-        body: ''
-      },
-      {
-        title: 'Education',
-        subtitle: '',
-        body: ''
-      }
-    ];
     $scope.fn.loadTopic = function (topic) {
       $scope.ui.currentTopic = topic;
     };
@@ -125,7 +96,10 @@ angular.module('core').controller('HomeController', [
       $scope.ui.currentTopic = null;
     };
     $scope.fn.init = function () {
-      $scope.fn.loadTopic($scope.content[0]);
+      $scope.ui.content = Pages.query();
+      $scope.ui.content.$promise.then(function () {
+        $scope.fn.loadTopic($scope.ui.content[0]);
+      });
     };
   }
 ]);'use strict';
@@ -291,6 +265,13 @@ angular.module('core').service('Menus', [function () {
     //Adding the topbar menu
     this.addMenu('topbar');
   }]);'use strict';
+//Pages service used for communicating with the pages REST endpoints
+angular.module('core').factory('Pages', [
+  '$resource',
+  function ($resource) {
+    return $resource('pages/:pageId', { pageId: '@_id' }, {});
+  }
+]);'use strict';
 //Menu service used for managing  menus
 angular.module('core').service('SupportedDisplayFormats', [function () {
     function OneColumn(columns) {
@@ -335,6 +316,96 @@ angular.module('core').service('SupportedDisplayFormats', [function () {
       ThreeColumnFormat: ThreeColumn
     };
   }]);'use strict';
+// Configuring the Articles module
+angular.module('pages').run([
+  'Menus',
+  function (Menus) {
+    // Set top bar menu items
+    Menus.addMenuItem('topbar', 'Pages', 'pages', 'dropdown', '/pages(/create)?');
+    Menus.addSubMenuItem('topbar', 'pages', 'List Pages', 'pages');
+    Menus.addSubMenuItem('topbar', 'pages', 'New Page', 'pages/create');
+  }
+]);'use strict';
+// Setting up route
+angular.module('pages').config([
+  '$stateProvider',
+  function ($stateProvider) {
+    // Pages state routing
+    $stateProvider.state('listPages', {
+      url: '/pages',
+      templateUrl: 'modules/page/views/list-pages.client.view.html'
+    }).state('createPage', {
+      url: '/pages/create',
+      templateUrl: 'modules/page/views/create-page.client.view.html'
+    }).state('viewPage', {
+      url: '/pages/:pageId',
+      templateUrl: 'modules/page/views/view-page.client.view.html'
+    }).state('editPage', {
+      url: '/pages/:pageId/edit',
+      templateUrl: 'modules/page/views/edit-page.client.view.html'
+    });
+  }
+]);'use strict';
+angular.module('pages').controller('PagesController', [
+  '$scope',
+  '$stateParams',
+  '$location',
+  'Authentication',
+  'Pages',
+  function ($scope, $stateParams, $location, Authentication, Pages) {
+    $scope.authentication = Authentication;
+    $scope.create = function () {
+      var page = new Pages({
+          title: this.title,
+          subtitle: this.subtitle,
+          body: this.body
+        });
+      page.$save(function (response) {
+        $location.path('pages/' + response._id);
+        $scope.title = '';
+        $scope.subtitle = '';
+        $scope.body = '';
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    $scope.remove = function (page) {
+      if (page) {
+        page.$remove();
+        for (var i in $scope.pages) {
+          if ($scope.pages[i] === page) {
+            $scope.pages.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.page.$remove(function () {
+          $location.path('pages');
+        });
+      }
+    };
+    $scope.update = function () {
+      var page = $scope.page;
+      page.$update(function () {
+        $location.path('pages/' + page._id);
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    $scope.find = function () {
+      $scope.pages = Pages.query();
+    };
+    $scope.findOne = function () {
+      $scope.page = Pages.get({ pageId: $stateParams.pageId });
+    };
+  }
+]);'use strict';
+//Pages service used for communicating with the pages REST endpoints
+angular.module('pages').factory('Pages', [
+  '$resource',
+  function ($resource) {
+    return $resource('pages/:pageId', { pageId: '@_id' }, { update: { method: 'PUT' } });
+  }
+]);'use strict';
 // Config HTTP Error Handling
 angular.module('users').config([
   '$httpProvider',
