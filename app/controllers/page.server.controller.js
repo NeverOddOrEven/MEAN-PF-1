@@ -73,7 +73,7 @@ exports.delete = function(req, res) {
  * List of Pages
  */
 exports.list = function(req, res) {
-  Page.find().sort('-created').populate('user', 'displayName').exec(function(err, pages) {
+  Page.find().sort('rank').populate('user', 'displayName').exec(function(err, pages) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
